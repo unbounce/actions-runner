@@ -29,6 +29,7 @@ namespace GitHub.Runner.Common.Tests
         private AssemblyLoadContext _loadContext;
         private string _tempDirectoryRoot = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("D"));
         private StartupType _startupType;
+        private bool _allowDockerInDocker;
         public event EventHandler Unloading;
         public CancellationToken RunnerShutdownToken => _runnerShutdownTokenSource.Token;
         public ShutdownReason RunnerShutdownReason { get; private set; }
@@ -87,6 +88,18 @@ namespace GitHub.Runner.Common.Tests
         }
 
         public List<ProductInfoHeaderValue> UserAgents => new List<ProductInfoHeaderValue>() { new ProductInfoHeaderValue("L0Test", "0.0") };
+
+        public bool AllowDockerInDocker
+        {
+            get
+            {
+                return _allowDockerInDocker;
+            }
+            set
+            {
+                _allowDockerInDocker = value;
+            }
+        }
 
         public RunnerWebProxy WebProxy => new RunnerWebProxy();
 
