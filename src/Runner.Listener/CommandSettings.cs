@@ -41,6 +41,7 @@ namespace GitHub.Runner.Listener
         {
             Constants.Runner.CommandLine.Args.Auth,
             Constants.Runner.CommandLine.Args.Labels,
+            Constants.Runner.CommandLine.Args.ExternalDockerNetwork,
             Constants.Runner.CommandLine.Args.MonitorSocketAddress,
             Constants.Runner.CommandLine.Args.Name,
             Constants.Runner.CommandLine.Args.Pool,
@@ -245,6 +246,11 @@ namespace GitHub.Runner.Listener
         public string GetMonitorSocketAddress()
         {
             return GetArg(Constants.Runner.CommandLine.Args.MonitorSocketAddress);
+        }
+
+        public string GetExternalDockerNetwork()
+        {
+            return GetArg(Constants.Runner.CommandLine.Args.ExternalDockerNetwork);
         }
 
         // This is used to find out the source from where the Runner.Listener.exe was launched at the time of run

@@ -30,6 +30,7 @@ namespace GitHub.Runner.Common.Tests
         private string _tempDirectoryRoot = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("D"));
         private StartupType _startupType;
         private bool _allowDockerInDocker;
+        private string _externalDockerNetwork;
         public event EventHandler Unloading;
         public CancellationToken RunnerShutdownToken => _runnerShutdownTokenSource.Token;
         public ShutdownReason RunnerShutdownReason { get; private set; }
@@ -98,6 +99,18 @@ namespace GitHub.Runner.Common.Tests
             set
             {
                 _allowDockerInDocker = value;
+            }
+        }
+
+        public string ExternalDockerNetwork
+        {
+            get
+            {
+                return _externalDockerNetwork;
+            }
+            set
+            {
+                _externalDockerNetwork = value;
             }
         }
 
