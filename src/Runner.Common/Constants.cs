@@ -74,7 +74,7 @@ namespace GitHub.Runner.Common
             public static readonly Architecture PlatformArchitecture = Architecture.X64;
 #elif ARM
             public static readonly Architecture PlatformArchitecture = Architecture.Arm;
-#elif ARM64            
+#elif ARM64
             public static readonly Architecture PlatformArchitecture = Architecture.Arm64;
 #endif
 
@@ -88,6 +88,7 @@ namespace GitHub.Runner.Common
                 {
                     public static readonly string Auth = "auth";
                     public static readonly string Labels = "labels";
+                    public static readonly string ExternalDockerNetwork = "docker-network";
                     public static readonly string MonitorSocketAddress = "monitorsocketaddress";
                     public static readonly string Name = "name";
                     public static readonly string Pool = "pool";

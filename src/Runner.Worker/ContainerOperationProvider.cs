@@ -24,13 +24,15 @@ namespace GitHub.Runner.Worker
 
     public class ContainerOperationProvider : RunnerService, IContainerOperationProvider
     {
-        private IDockerCommandManager _dockerManger;
         private bool _allowDockerInDocker;
+        private string _externalDockerNetwork;
+        private IDockerCommandManager _dockerManger;
 
         public override void Initialize(IHostContext hostContext)
         {
             base.Initialize(hostContext);
             _allowDockerInDocker = hostContext.AllowDockerInDocker;
+            _externalDockerNetwork = hostContext.ExternalDockerNetwork;
             _dockerManger = HostContext.GetService<IDockerCommandManager>();
         }
 
@@ -133,7 +135,7 @@ namespace GitHub.Runner.Worker
 
             // Create local docker network for this job to avoid port conflict when multiple runners run on same machine.
             // All containers within a job join the same network
-            var containerNetwork = $"github_network_{Guid.NewGuid().ToString("N")}";
+            var containerNetwork = string.IsNullOrEmpty(_externalDockerNetwork) ? $"github_network_{Guid.NewGuid().ToString("N")}" : _externalDockerNetwork;
             await CreateContainerNetworkAsync(executionContext, containerNetwork);
             executionContext.JobContext.Container["network"] = new StringContextData(containerNetwork);
 
@@ -161,8 +163,10 @@ namespace GitHub.Runner.Worker
             {
                 await StopContainerAsync(executionContext, container);
             }
-            // Remove the container network
-            await RemoveContainerNetworkAsync(executionContext, containers.First().ContainerNetwork);
+            // Remove the container network, if not using an external network
+            if (!string.IsNullOrEmpty(_externalDockerNetwork)) {
+              await RemoveContainerNetworkAsync(executionContext, containers.First().ContainerNetwork);
+            }
         }
 
         private async Task StartContainerAsync(IExecutionContext executionContext, ContainerInfo container)
