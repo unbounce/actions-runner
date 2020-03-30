@@ -60,6 +60,12 @@ namespace GitHub.Runner.Common
             }
         }
 
+        [DataMember(EmitDefaultValue = false)]
+        public bool AllowDockerInDocker { get; set; }
+
+        [DataMember(EmitDefaultValue = false)]
+        public string ExternalDockerNetwork { get; set; }
+
         /// <summary>
         // Computed property for convenience. Can either return:
         // 1. If runner was configured at the repo level, returns something like: "myorg/myrepo"

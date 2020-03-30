@@ -297,6 +297,10 @@ namespace GitHub.Runner.Listener.Configuration
 
             runnerSettings.MonitorSocketAddress = command.GetMonitorSocketAddress();
 
+            runnerSettings.AllowDockerInDocker = command.AllowDockerInDocker;
+
+            runnerSettings.ExternalDockerNetwork = command.GetExternalDockerNetwork();
+
             _store.SaveSettings(runnerSettings);
 
             _term.WriteLine();

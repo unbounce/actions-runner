@@ -31,8 +31,12 @@ namespace GitHub.Runner.Worker
         public override void Initialize(IHostContext hostContext)
         {
             base.Initialize(hostContext);
-            _allowDockerInDocker = hostContext.AllowDockerInDocker;
-            _externalDockerNetwork = hostContext.ExternalDockerNetwork;
+
+            var configurationStore = hostContext.GetService<IConfigurationStore>();
+            var _runnerSetting = configurationStore.GetSettings();
+            _allowDockerInDocker = _runnerSetting.AllowDockerInDocker;
+            _externalDockerNetwork = _runnerSetting.ExternalDockerNetwork;
+
             _dockerManger = HostContext.GetService<IDockerCommandManager>();
         }
 
