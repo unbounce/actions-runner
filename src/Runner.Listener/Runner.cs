@@ -192,13 +192,6 @@ namespace GitHub.Runner.Listener
                     Trace.Info($"Set runner startup type - {startType}");
                     HostContext.StartupType = startType;
 
-                    Trace.Info($"Set runner allowDockerInDocker - {command.AllowDockerInDocker}");
-                    HostContext.AllowDockerInDocker = command.AllowDockerInDocker;
-
-                    string externalDockerNetwork = command.GetExternalDockerNetwork();
-                    Trace.Info($"Set runner externalDockerNetwork - {externalDockerNetwork}");
-                    HostContext.ExternalDockerNetwork = externalDockerNetwork;
-
                     // Run the runner interactively or as service
                     return await RunAsync(settings, command.RunOnce);
                 }
