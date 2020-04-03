@@ -168,7 +168,7 @@ namespace GitHub.Runner.Worker
                 await StopContainerAsync(executionContext, container);
             }
             // Remove the container network, if not using an external network
-            if (!string.IsNullOrEmpty(_externalDockerNetwork)) {
+            if (string.IsNullOrEmpty(_externalDockerNetwork)) {
               await RemoveContainerNetworkAsync(executionContext, containers.First().ContainerNetwork);
             }
         }
