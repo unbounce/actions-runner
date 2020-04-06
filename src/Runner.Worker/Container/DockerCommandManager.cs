@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
 using GitHub.Runner.Common;
 using GitHub.Runner.Sdk;
 
@@ -43,7 +44,7 @@ namespace GitHub.Runner.Worker.Container
         {
             base.Initialize(hostContext);
             DockerPath = WhichUtil.Which("docker", true, Trace);
-            DockerInstanceLabel = IOUtil.GetPathHash(hostContext.GetDirectory(WellKnownDirectory.Root)).Substring(0, 6);
+            DockerInstanceLabel = Dns.GetHostName();
         }
 
         public async Task<DockerVersion> DockerVersion(IExecutionContext context)
